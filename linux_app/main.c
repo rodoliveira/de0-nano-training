@@ -9,6 +9,10 @@
 #define LW_AXI_BASE 0xFF200000 //ARM LW ADDR BASE
 #define LW_AXI_SPAN 0x00200000 //2 MB SIZE
 
+#define AXI_BASE 0xC0000000 //ARM LW ADDR BASE
+#define AXI_SPAN 0x40000000 //MUITOS MB SIZE
+
+
 void* virtual_base;
 void* led_addr;
 void* sw_addr;
@@ -18,7 +22,7 @@ int switches;
 
 int main (){
   fd=open("/dev/mem",(O_RDWR|O_SYNC));
-  virtual_base = mmap(NULL,LW_AXI_SPAN,(PROT_READ|PROT_WRITE),MAP_SHARED,fd,LW_AXI_BASE);
+  virtual_base = mmap(NULL,AXI_SPAN,(PROT_READ|PROT_WRITE),MAP_SHARED,fd,AXI_BASE);
   sw_addr = virtual_base + SW_BASE; //defined in hps_0.h
   led_addr = virtual_base + LED_BASE; //defined in hps_0.h
 
